@@ -1,24 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
    <children>
-      <Button layoutX="632.0" layoutY="435.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" text="ENVIAR" />
-      <TextField layoutX="223.0" layoutY="435.0" prefHeight="25.0" prefWidth="389.0" />
-      <Separator layoutX="193.0" layoutY="112.0" orientation="VERTICAL" prefHeight="381.0" prefWidth="15.0" />
-      <Separator layoutY="110.0" prefHeight="4.0" prefWidth="720.0" />
-      <Pane layoutX="223.0" layoutY="134.0" prefHeight="282.0" prefWidth="474.0">
+      <Button layoutX="641.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" styleClass="botao" text="ENVIAR" />
+      <TextField layoutX="208.0" layoutY="464.0" prefHeight="25.0" prefWidth="406.0" />
+      <Separator layoutX="193.0" layoutY="146.0" orientation="VERTICAL" prefHeight="347.0" prefWidth="15.0" />
+      <Separator layoutY="145.0" prefHeight="4.0" prefWidth="720.0" />
+      <Pane layoutX="208.0" layoutY="157.0" prefHeight="296.0" prefWidth="497.0" styleClass="mensagens">
          <effect>
             <Glow />
          </effect>
       </Pane>
-      <ListView layoutX="9.0" layoutY="122.0" prefHeight="367.0" prefWidth="179.0" />
+      <ListView layoutX="9.0" layoutY="157.0" prefHeight="332.0" prefWidth="179.0" styleClass="usuarios" />
+      <ImageView fx:id="img" fitHeight="114.0" fitWidth="255.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
+      <Pane layoutX="347.0" layoutY="4.0" prefHeight="138.0" prefWidth="370.0">
+         <children>
+            <Label layoutX="11.0" layoutY="6.0" prefHeight="4.0" prefWidth="76.0" text="SEU NOME:" />
+            <TextField layoutX="11.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" styleClass="login" />
+            <Button layoutX="37.0" layoutY="85.0" mnemonicParsing="false" text="CRIAR SERVIDOR" />
+            <Label layoutX="190.0" layoutY="61.0" text="SERVIDOR:" />
+            <TextField layoutX="189.0" layoutY="80.0" prefHeight="25.0" prefWidth="170.0" />
+            <Button layoutX="236.0" layoutY="112.0" mnemonicParsing="false" text="CONECTAR" />
+            <Separator layoutX="175.0" layoutY="60.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="15.0" />
+         </children>
+      </Pane>
    </children>
 </AnchorPane>
