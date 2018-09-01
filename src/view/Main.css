@@ -1,0 +1,16 @@
+.layout{
+    -fx-background-color: #E6E6FA;
+}
+.mensagens{
+    -fx-background-color:#FFFFFF;
+}
+
+.usuarios{
+    -fx-background-color:#FFFFFF;
+}
+
+.botao{
+    -fx-cursor: hand;
+}
+
+

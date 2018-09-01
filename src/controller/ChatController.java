@@ -5,6 +5,7 @@
  */
 package controller;
 
+ import javafx.scene.image.Image;
 import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,6 +15,7 @@ import static javafx.application.Application.launch;
 import static javafx.application.ConditionalFeature.FXML;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.image.ImageView;
 import javafx.scene.shape.Arc;
 
 /**
@@ -24,13 +26,20 @@ import javafx.scene.shape.Arc;
 public class ChatController implements Initializable {
 
     @FXML private Arc arc;
+    @FXML private ImageView img;
+    
     /**
      * Initializes the controller class.
      */
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
+        Image image = new Image("/imagens/logo.png");
+ 
+        img.setImage(image);
+        
+       
     }   
     
 }
