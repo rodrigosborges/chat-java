@@ -5,8 +5,8 @@
  */
 package view;
 
-import controller.Cliente;
-import controller.Servidor;
+import threads.Cliente;
+import threads.Servidor;
 import java.io.IOException;
 
 /**
@@ -16,10 +16,13 @@ import java.io.IOException;
 public class MainTeste {
     
     public static void main(String[] args) throws IOException{
-        Cliente cliente = new Cliente("127.0.0.1");
         Servidor servidor = new Servidor(6666);
+        servidor.start();
         
-        servidor.run();
-        cliente.run();
+//        Cliente cliente = new Cliente("127.0.0.1");
+//        cliente.start();
+//        
+//        Cliente cliente2 = new Cliente("127.0.0.1");
+//        cliente2.start();
     }
 }
