@@ -3,20 +3,21 @@ package threads;
 
 import java.io.InputStream;
 import java.util.Scanner;
+import model.Cliente;
 
 public class TrataCliente implements Runnable{
-    private InputStream cliente;
+    private Cliente cliente;
     private Servidor servidor;
 
-    public TrataCliente(InputStream cliente, Servidor servidor){
+    public TrataCliente(Cliente cliente, Servidor servidor){
         this.cliente = cliente;
         this.servidor = servidor;
     }
 
     public void run() {
-        Scanner s = new Scanner(this.cliente);
+        Scanner s = new Scanner(this.cliente.getIn());
         while(s.hasNextLine()) {
-            servidor.distribuiMensagem(s.nextLine(), cliente);
+            servidor.controleMensagem(s.nextLine(), cliente);
         }
         s.close();
     }

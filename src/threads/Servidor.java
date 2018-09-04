@@ -10,16 +10,17 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import model.Cliente;
 
 
     public class Servidor {
 
         private int porta;
-        private List<PrintStream> clientes;
+        private List<Cliente> clientes;
 
         public Servidor(int porta) {
             this.porta = porta;
-            this.clientes = new ArrayList<PrintStream>();
+            this.clientes = new ArrayList<Cliente>();
         }
 
         public void executa() throws IOException {
@@ -34,19 +35,41 @@ import java.util.logging.Logger;
                         + cliente.getInetAddress().getHostAddress());
 
                 // adiciona saida do cliente a lista
-                PrintStream ps = new PrintStream(cliente.getOutputStream());
-                this.clientes.add(ps);
+                Cliente cl = new Cliente(cliente.getInputStream(),new PrintStream(cliente.getOutputStream()));
+                this.clientes.add(cl);
 
                 // cria tratador de cliente numa nova thread
-                TrataCliente tc = new TrataCliente(cliente.getInputStream(), this);
+                TrataCliente tc = new TrataCliente(cl, this);
                 new Thread(tc).start();
             }
         }
+        
+        public void controleMensagem(String msg, Cliente remetente){
+            String funcao = msg.split(":")[0];
+            switch(funcao){
+                case "login": 
+                    login(msg.split(":")[1]);
+                case "mensagem": 
+                    transmitir(msg.split(":")[1], msg.split(":")[2], remetente);
+            }
+        }
+        
+        public void login(String msg){
+            
+        }
+        
+        public void lista_usuarios(){
+            
+        }
+        
+        public void mensagem(){
+            
+        }
 
-        public void distribuiMensagem(String msg, InputStream remetente) {
-            for (PrintStream cliente : this.clientes){
-                if(!cliente.equals(remetente))
-                    cliente.println(msg);
+        public void transmitir(String destinatarios,String msg, Cliente remetente) {
+            for (Cliente cliente : this.clientes){
+                if(remetente != cliente)
+                    cliente.getOut().println(msg);
             }
         }
     }
