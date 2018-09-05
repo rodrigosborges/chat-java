@@ -26,11 +26,11 @@
       <Pane layoutX="347.0" layoutY="4.0" prefHeight="138.0" prefWidth="370.0">
          <children>
             <Label layoutX="11.0" layoutY="6.0" prefHeight="4.0" prefWidth="76.0" text="SEU NOME:" />
-            <TextField layoutX="11.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" styleClass="login" />
-            <Button layoutX="37.0" layoutY="85.0" mnemonicParsing="false" text="CRIAR SERVIDOR" />
+            <TextField fx:id="nome" layoutX="11.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" styleClass="login" />
+            <Button layoutX="37.0" layoutY="85.0" mnemonicParsing="false" onAction="#criarServidor" text="CRIAR SERVIDOR" />
             <Label layoutX="190.0" layoutY="61.0" text="SERVIDOR:" />
-            <TextField layoutX="189.0" layoutY="80.0" prefHeight="25.0" prefWidth="170.0" />
-            <Button layoutX="236.0" layoutY="112.0" mnemonicParsing="false" text="CONECTAR" />
+            <TextField fx:id="servidor" layoutX="189.0" layoutY="80.0" prefHeight="25.0" prefWidth="170.0" />
+            <Button layoutX="236.0" layoutY="112.0" mnemonicParsing="false" onAction="#entrarServidor" text="CONECTAR" />
             <Separator layoutX="175.0" layoutY="60.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="15.0" />
          </children>
       </Pane>

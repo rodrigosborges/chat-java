@@ -5,10 +5,13 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ClienteTeste {
+public class ClienteTeste extends Thread{
     private String host;
     private int porta;
+    private String mensagem = null;
 
     public ClienteTeste(String host, int porta) {
         this.host = host;
@@ -25,15 +28,31 @@ public class ClienteTeste {
         new Thread(r).start();
 
         // lê msgs do teclado e manda pro servidor
-        Scanner teclado = new Scanner(System.in);
         PrintStream saida = new PrintStream(cliente.getOutputStream());
         
-        while (teclado.hasNextLine()) {
-            saida.println(teclado.nextLine());
+        while (true) {
+            if(mensagem == null){} else {
+                if(mensagem.equals("sair")){
+                    saida.println(mensagem);
+                    saida.close();
+                    cliente.close();
+                }else{
+                    saida.println(mensagem);
+                    mensagem = null;
+                }
+            }
         }
+    }
+    
+    public void enviarMensagem(String mensagem){
+        this.mensagem = mensagem;
+    }
 
-        saida.close();
-        teclado.close();
-        cliente.close();
+    public void run() {
+        try {
+            this.executa();
+        } catch (IOException ex) {
+            Logger.getLogger(ClienteTeste.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

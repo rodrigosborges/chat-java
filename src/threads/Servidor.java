@@ -15,7 +15,7 @@ import java.util.regex.Pattern;
 import model.Cliente;
 
 
-    public class Servidor {
+    public class Servidor extends Thread{
 
         private int porta;
         private List<Cliente> clientes;
@@ -23,6 +23,14 @@ import model.Cliente;
         public Servidor(int porta) {
             this.porta = porta;
             this.clientes = new ArrayList<Cliente>();
+        }
+        
+        public void run(){
+            try {
+                this.executa();
+            } catch (IOException ex) {
+                Logger.getLogger(Servidor.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
 
         public void executa() throws IOException {
@@ -47,6 +55,7 @@ import model.Cliente;
         }
         
         public void controleMensagem(String msg, Cliente remetente){
+            System.out.println(msg);
             String funcao = msg.split(":")[0];
             switch(funcao){
                 case "login": 
@@ -54,6 +63,9 @@ import model.Cliente;
                     break;
                 case "mensagem":
                     transmitir(msg.split(":")[1], msg.split(":",3)[2],remetente);
+                    break;
+                case "sair":
+                    clientes.remove(remetente);
                     break;
                 default:
                     break;
