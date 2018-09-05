@@ -1,8 +1,11 @@
 
 package threads;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Cliente;
 
 public class TrataCliente implements Runnable{
@@ -17,7 +20,7 @@ public class TrataCliente implements Runnable{
     public void run() {
         Scanner s = new Scanner(this.cliente.getIn());
         while(s.hasNextLine()) {
-            servidor.controleMensagem(s.nextLine(), cliente);
+                servidor.controleMensagem(s.nextLine(), cliente);
         }
         s.close();
     }

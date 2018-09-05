@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import model.Cliente;
 
 
@@ -48,28 +50,63 @@ import model.Cliente;
             String funcao = msg.split(":")[0];
             switch(funcao){
                 case "login": 
-                    login(msg.split(":")[1]);
-                case "mensagem": 
-                    transmitir(msg.split(":")[1], msg.split(":")[2], remetente);
+                    login(msg.split(":",2)[1],remetente);
+                    break;
+                case "mensagem":
+                    transmitir(msg.split(":")[1], msg.split(":",3)[2],remetente);
+                    break;
+                default:
+                    break;
             }
         }
         
-        public void login(String msg){
+        public void login(String nome,Cliente remetente){
+            Boolean livre = true;
+            for (Cliente cliente : this.clientes){
+                if(nome.equals(cliente.getNome()))
+                    livre = false;
+            }
             
+            Boolean resultado = livre && nome.matches("[a-zA-Z0-9 ]*") && !nome.equals("");
+                        
+            remetente.getOut().println("login:"+resultado.toString());
+            
+            if(resultado){
+                remetente.setNome(nome);
+                lista_usuarios();
+            }
         }
         
         public void lista_usuarios(){
-            
-        }
-        
-        public void mensagem(){
-            
+            String mensagem = "lista_usuarios:";
+            for (Cliente cliente : this.clientes){
+                if(cliente.getNome() != null){
+                    mensagem += (mensagem.substring(mensagem.length() - 1).equals(":") ? "" : ";")+cliente.getNome();
+                }
+            }
+            for (Cliente cliente : this.clientes){
+                if(cliente.getNome() != null){
+                    cliente.getOut().println(mensagem);
+                }
+            }    
         }
 
-        public void transmitir(String destinatarios,String msg, Cliente remetente) {
-            for (Cliente cliente : this.clientes){
-                if(remetente != cliente)
-                    cliente.getOut().println(msg);
+        public void transmitir(String destinatarios,String msg,Cliente remetente) {
+            if(remetente.getNome() != null){
+                if(destinatarios.equals("*")){
+                    for (Cliente cliente : this.clientes){
+                        if(cliente.getNome() != null && cliente != remetente)
+                            cliente.getOut().println("transmitir:"+remetente.getNome()+":*:"+msg);
+                    }                    
+                }else{
+                    String[] destinatariosarray = destinatarios.split(";");
+                    for (Cliente cliente : this.clientes){
+                        for (String destinatario : destinatariosarray){
+                            if(cliente.getNome().equals(destinatario))
+                                cliente.getOut().println("transmitir:"+remetente.getNome()+":"+destinatarios+":"+msg);
+                        }
+                    }
+                }
             }
         }
     }

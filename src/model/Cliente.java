@@ -4,7 +4,7 @@ import java.io.InputStream;
 import java.io.PrintStream;
 
 public class Cliente {
-    private String nome;
+    private String nome = null;
     private InputStream in;
     private PrintStream out;
 

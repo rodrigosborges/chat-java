@@ -26,7 +26,6 @@ public class ClienteTeste {
 
         // lê msgs do teclado e manda pro servidor
         Scanner teclado = new Scanner(System.in);
-        System.out.println("Digite algo: ");
         PrintStream saida = new PrintStream(cliente.getOutputStream());
         
         while (teclado.hasNextLine()) {
