@@ -5,6 +5,7 @@
  */
 package controller;
 
+import java.awt.event.MouseEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import java.io.IOException;
@@ -40,11 +41,11 @@ import threads.Servidor;
 public class ChatController implements Initializable {
 
     @FXML private ImageView img;
-    @FXML private TextField nome;
-    @FXML private TextField servidor;
-    @FXML private TextField mensagem;  
-    @FXML private ListView<String> lista = new ListView<String>();
-    @FXML private ListView<String> mensagens = new ListView<String>();
+    @FXML private TextField nome, servidor, mensagem;
+    @FXML private ListView<String> lista = new ListView<String>(),mensagens = new ListView<String>();
+    @FXML private ArrayList<String> destinatarios = new ArrayList<String>();
+    @FXML private Label destinatarioslist;
+    @FXML private Button criar, conectar;
     private ClienteThread cliente;
     
     /**
@@ -57,13 +58,29 @@ public class ChatController implements Initializable {
         this.cliente = new ClienteThread("127.0.0.1", 6666, this);
         cliente.executa();
         this.cliente.enviarMensagem("login:"+nome.getText());
+        nome.setDisable(true);
+        criar.setDisable(true);
+        conectar.setDisable(true);
+        servidor.setDisable(true);
     }
     
     @FXML
     private void entrarServidor(ActionEvent event) throws IOException{
         this.cliente = new ClienteThread(servidor.getText(), 6666, this); 
         cliente.executa();
-        this.cliente.enviarMensagem("login:"+nome.getText());    
+        this.cliente.enviarMensagem("login:"+nome.getText());
+        nome.setDisable(true);
+        criar.setDisable(true);
+        conectar.setDisable(true);
+        servidor.setDisable(true);
+    }
+    
+    public void atualizaDestinatarios(){
+        String todos = "";
+        for(String destinatario : destinatarios){
+            todos += todos.equals("") ? destinatario : ";"+destinatario;
+        }
+        this.destinatarioslist.setText(todos);
     }
     
     public void login(String resultado){
@@ -80,14 +97,22 @@ public class ChatController implements Initializable {
     
     @FXML
     private void enviarMensagem(ActionEvent event) throws IOException{
-        this.cliente.enviarMensagem("mensagem:"+mensagem.getText());
-        mensagem.setText("");
+        if(!destinatarioslist.equals("")){
+            this.cliente.enviarMensagem("mensagem:"+this.destinatarioslist.getText()+":"+mensagem.getText());
+            mensagem.setText("");
+        }
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         Image image = new Image("/imagens/logo.png");
         img.setImage(image);
+        lista.setOnMousePressed(e -> {
+            if(!destinatarios.contains(this.lista.getSelectionModel().getSelectedItem())){
+                this.destinatarios.add(this.lista.getSelectionModel().getSelectedItem());   
+                this.atualizaDestinatarios();
+            }
+        });
     }   
     
     public void mensagem(String titulo, String texto){
@@ -106,6 +131,7 @@ public class ChatController implements Initializable {
                 Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
+        
     }
     
 }

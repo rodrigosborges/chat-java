@@ -13,15 +13,15 @@
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
    <children>
       <Button layoutX="641.0" layoutY="464.0" mnemonicParsing="false" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="65.0" styleClass="botao" text="ENVIAR" />
-      <TextField fx:id="mensagem" layoutX="208.0" layoutY="464.0" prefHeight="25.0" prefWidth="406.0" />
+      <TextField fx:id="mensagem" layoutX="208.0" layoutY="464.0" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="406.0" />
       <Separator layoutX="193.0" layoutY="146.0" orientation="VERTICAL" prefHeight="347.0" prefWidth="15.0" />
       <Separator layoutY="145.0" prefHeight="4.0" prefWidth="720.0" />
-      <Pane layoutX="208.0" layoutY="157.0" prefHeight="296.0" prefWidth="497.0" styleClass="mensagens">
+      <Pane layoutX="208.0" layoutY="157.0" prefHeight="284.0" prefWidth="497.0" styleClass="mensagens">
          <effect>
             <Glow />
          </effect>
          <children>
-            <ListView fx:id="mensagens" layoutY="-1.0" prefHeight="296.0" prefWidth="497.0" />
+            <ListView fx:id="mensagens" layoutY="-1.0" prefHeight="284.0" prefWidth="497.0" />
          </children>
       </Pane>
       <ListView fx:id="lista" layoutX="9.0" layoutY="157.0" prefHeight="332.0" prefWidth="179.0" styleClass="usuarios" />
@@ -30,12 +30,13 @@
          <children>
             <Label layoutX="11.0" layoutY="6.0" prefHeight="4.0" prefWidth="76.0" text="SEU NOME:" />
             <TextField fx:id="nome" layoutX="11.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" styleClass="login" />
-            <Button layoutX="37.0" layoutY="85.0" mnemonicParsing="false" onAction="#criarServidor" text="CRIAR SERVIDOR" />
+            <Button fx:id="criar" layoutX="37.0" layoutY="85.0" mnemonicParsing="false" onAction="#criarServidor" text="CRIAR SERVIDOR" />
             <Label layoutX="190.0" layoutY="61.0" text="SERVIDOR:" />
             <TextField fx:id="servidor" layoutX="189.0" layoutY="80.0" prefHeight="25.0" prefWidth="170.0" />
-            <Button layoutX="236.0" layoutY="112.0" mnemonicParsing="false" onAction="#entrarServidor" text="CONECTAR" />
+            <Button fx:id="conectar" layoutX="236.0" layoutY="112.0" mnemonicParsing="false" onAction="#entrarServidor" text="CONECTAR" />
             <Separator layoutX="175.0" layoutY="60.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="15.0" />
          </children>
       </Pane>
+      <Label fx:id="destinatarioslist" layoutX="208.0" layoutY="443.0" prefHeight="17.0" prefWidth="497.0" />
    </children>
 </AnchorPane>
