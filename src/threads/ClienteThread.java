@@ -1,6 +1,7 @@
 package threads;
 
 import controller.ChatController;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
@@ -13,11 +14,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-public class ClienteThread extends Thread{
+public class ClienteThread{
     private String host;
     private int porta;
-    private String mensagem = null;
+    private String mensagem = "";
     private ChatController controller;
+    private PrintStream saida;
 
     public ClienteThread(String host, int porta, ChatController controller) {
         this.host = host;
@@ -35,27 +37,14 @@ public class ClienteThread extends Thread{
         new Thread(r).start();
 
         // lê msgs do teclado e manda pro servidor
-        PrintStream saida = new PrintStream(cliente.getOutputStream());
-        
-        while (true) {
-            if(mensagem != null){
-                if(mensagem.equals("sair")){
-                    saida.println(mensagem);
-                    saida.close();
-                    cliente.close();
-                }else{
-                    saida.println(mensagem);
-                    mensagem = null;
-                }
-            }
-        }
+        this.saida = new PrintStream(cliente.getOutputStream());
     }
     
     public void enviarMensagem(String mensagem){
-        this.mensagem = mensagem;
-    }
+        saida.println(mensagem);
+   }
     
-    public void controleMensagem(String msg){
+    public synchronized void controleMensagem(String msg){
         switch(msg.split(":")[0]){
             case "login":
                 controller.login(msg.split(":")[1]);
@@ -64,16 +53,9 @@ public class ClienteThread extends Thread{
                 controller.lista_usuarios(msg.split(":")[1]);
                 break;
             case "transmitir":
+                System.out.println(msg);
                 controller.transmitir(msg.split(":")[1], msg.split(":")[2], msg.split(":")[3]);
                 break;
-        }
-    }
-
-    public void run() {
-        try {
-            this.executa();
-        } catch (IOException ex) {
-            Logger.getLogger(ClienteThread.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

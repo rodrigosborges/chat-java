@@ -18,10 +18,15 @@ public class TrataCliente implements Runnable{
     }
 
     public void run() {
-        Scanner s = new Scanner(this.cliente.getIn());
-        while(s.hasNextLine()) {
-            servidor.controleMensagem(s.nextLine(), cliente);
+        Scanner s;
+        try {
+            s = new Scanner(this.cliente.getIn());
+            while(s.hasNextLine()) {
+                servidor.controleMensagem(s.nextLine(), cliente);
+            }
+            s.close();
+        } catch (IOException ex) {
+            Logger.getLogger(TrataCliente.class.getName()).log(Level.SEVERE, null, ex);
         }
-        s.close();
     }
 }

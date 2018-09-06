@@ -12,14 +12,17 @@
 
 <AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
    <children>
-      <Button layoutX="641.0" layoutY="464.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="65.0" styleClass="botao" text="ENVIAR" />
-      <TextField layoutX="208.0" layoutY="464.0" prefHeight="25.0" prefWidth="406.0" />
+      <Button layoutX="641.0" layoutY="464.0" mnemonicParsing="false" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="65.0" styleClass="botao" text="ENVIAR" />
+      <TextField fx:id="mensagem" layoutX="208.0" layoutY="464.0" prefHeight="25.0" prefWidth="406.0" />
       <Separator layoutX="193.0" layoutY="146.0" orientation="VERTICAL" prefHeight="347.0" prefWidth="15.0" />
       <Separator layoutY="145.0" prefHeight="4.0" prefWidth="720.0" />
       <Pane layoutX="208.0" layoutY="157.0" prefHeight="296.0" prefWidth="497.0" styleClass="mensagens">
          <effect>
             <Glow />
          </effect>
+         <children>
+            <ListView fx:id="mensagens" layoutY="-1.0" prefHeight="296.0" prefWidth="497.0" />
+         </children>
       </Pane>
       <ListView fx:id="lista" layoutX="9.0" layoutY="157.0" prefHeight="332.0" prefWidth="179.0" styleClass="usuarios" />
       <ImageView fx:id="img" fitHeight="114.0" fitWidth="255.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />

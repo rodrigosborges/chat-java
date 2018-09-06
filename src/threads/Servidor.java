@@ -45,7 +45,7 @@ import model.Cliente;
                         + cliente.getInetAddress().getHostAddress());
 
                 // adiciona saida do cliente a lista
-                Cliente cl = new Cliente(cliente.getInputStream(),new PrintStream(cliente.getOutputStream()));
+                Cliente cl = new Cliente(cliente);
                 this.clientes.add(cl);
 
                 // cria tratador de cliente numa nova thread
@@ -54,7 +54,8 @@ import model.Cliente;
             }
         }
         
-        public void controleMensagem(String msg, Cliente remetente){
+        public void controleMensagem(String msg, Cliente remetente) throws IOException{
+            System.out.println(msg);
             String funcao = msg.split(":")[0];
             switch(funcao){
                 case "login": 
@@ -71,7 +72,7 @@ import model.Cliente;
             }
         }
         
-        public void login(String nome,Cliente remetente){
+        public void login(String nome,Cliente remetente) throws IOException{
             Boolean livre = true;
             for (Cliente cliente : this.clientes){
                 if(nome.equals(cliente.getNome()))
@@ -88,7 +89,7 @@ import model.Cliente;
             }
         }
         
-        public void lista_usuarios(){
+        public void lista_usuarios() throws IOException{
             String mensagem = "lista_usuarios:";
             for (Cliente cliente : this.clientes){
                 if(cliente.getNome() != null){
@@ -102,7 +103,7 @@ import model.Cliente;
             }    
         }
 
-        public void transmitir(String destinatarios,String msg,Cliente remetente) {
+        public void transmitir(String destinatarios,String msg,Cliente remetente) throws IOException {
             if(remetente.getNome() != null){
                 if(destinatarios.equals("*")){
                     for (Cliente cliente : this.clientes){

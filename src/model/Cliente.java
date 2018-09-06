@@ -1,22 +1,16 @@
 package model;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.net.Socket;
 
 public class Cliente {
     private String nome = null;
-    private InputStream in;
-    private PrintStream out;
-
-    public Cliente(String nome, InputStream in, PrintStream out) {
-        this.nome = nome;
-        this.in = in;
-        this.out = out;
-    }
+    private Socket socket;
     
-    public Cliente(InputStream in,PrintStream out) {
-        this.in = in;
-        this.out = out;
+    public Cliente(Socket socket) {
+        this.socket = socket;
     }
 
     public String getNome() {
@@ -27,21 +21,16 @@ public class Cliente {
         this.nome = nome;
     }
 
-    public InputStream getIn() {
-        return in;
+    public InputStream getIn() throws IOException {
+        return socket.getInputStream();
     }
 
-    public void setIn(InputStream in) {
-        this.in = in;
-    }
-
-    public PrintStream getOut() {
-        return out;
-    }
-
-    public void setOut(PrintStream out) {
-        this.out = out;
+    public PrintStream getOut() throws IOException {
+        return new PrintStream(socket.getOutputStream());
     }
     
-    
+    public Socket getSocket(){
+        return this.socket;
+    }
+     
 }
