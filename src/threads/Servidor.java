@@ -55,7 +55,6 @@ import model.Cliente;
         }
         
         public void controleMensagem(String msg, Cliente remetente){
-            System.out.println(msg);
             String funcao = msg.split(":")[0];
             switch(funcao){
                 case "login": 

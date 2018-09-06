@@ -6,9 +6,11 @@ import java.util.Scanner;
 public class Recebedor implements Runnable {
 
     private InputStream servidor;
-
-    public Recebedor(InputStream servidor) {
+    private ClienteThread thread;
+    
+    public Recebedor(InputStream servidor, ClienteThread thread) {
         this.servidor = servidor;
+        this.thread = thread;
     }
 
     @Override
@@ -17,7 +19,7 @@ public class Recebedor implements Runnable {
         Scanner s = new Scanner(this.servidor);
 
         while (s.hasNextLine()) {
-            System.out.println(s.nextLine());
+            thread.controleMensagem(s.nextLine());
         }
     }
 }

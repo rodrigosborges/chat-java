@@ -21,7 +21,7 @@
             <Glow />
          </effect>
       </Pane>
-      <ListView layoutX="9.0" layoutY="157.0" prefHeight="332.0" prefWidth="179.0" styleClass="usuarios" />
+      <ListView fx:id="lista" layoutX="9.0" layoutY="157.0" prefHeight="332.0" prefWidth="179.0" styleClass="usuarios" />
       <ImageView fx:id="img" fitHeight="114.0" fitWidth="255.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
       <Pane layoutX="347.0" layoutY="4.0" prefHeight="138.0" prefWidth="370.0">
          <children>

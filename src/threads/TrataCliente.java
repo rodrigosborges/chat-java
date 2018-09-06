@@ -20,7 +20,7 @@ public class TrataCliente implements Runnable{
     public void run() {
         Scanner s = new Scanner(this.cliente.getIn());
         while(s.hasNextLine()) {
-                servidor.controleMensagem(s.nextLine(), cliente);
+            servidor.controleMensagem(s.nextLine(), cliente);
         }
         s.close();
     }
