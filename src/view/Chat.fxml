@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
    <children>
       <Button layoutX="641.0" layoutY="464.0" mnemonicParsing="false" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="65.0" styleClass="botao" text="ENVIAR" />
       <TextField fx:id="mensagem" layoutX="208.0" layoutY="464.0" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="406.0" />
@@ -37,6 +37,7 @@
             <Separator layoutX="175.0" layoutY="60.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="15.0" />
          </children>
       </Pane>
-      <Label fx:id="destinatarioslist" layoutX="208.0" layoutY="443.0" prefHeight="17.0" prefWidth="497.0" />
+      <Label fx:id="destinatarioslist" layoutX="274.0" layoutY="443.0" prefHeight="17.0" prefWidth="431.0" />
+      <Label layoutX="208.0" layoutY="443.0" prefHeight="17.0" prefWidth="65.0" text="Enviar para:" />
    </children>
 </AnchorPane>

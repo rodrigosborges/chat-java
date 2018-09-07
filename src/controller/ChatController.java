@@ -77,9 +77,8 @@ public class ChatController implements Initializable {
     
     public void atualizaDestinatarios(){
         String todos = "";
-        for(String destinatario : destinatarios){
+        for(String destinatario : destinatarios)
             todos += todos.equals("") ? destinatario : ";"+destinatario;
-        }
         this.destinatarioslist.setText(todos);
     }
     
@@ -92,14 +91,16 @@ public class ChatController implements Initializable {
     }
     
     public void transmitir(String remetente, String destinatario, String msg){
-        mensagens.getItems().add(remetente+" : "+msg);
+        mensagens.getItems().add("| De: "+remetente+" | Para: "+destinatario+" | : "+msg);
     }
     
     @FXML
     private void enviarMensagem(ActionEvent event) throws IOException{
-        if(!destinatarioslist.equals("")){
+        if(!destinatarioslist.getText().equals("") && !mensagem.getText().equals("")){
             this.cliente.enviarMensagem("mensagem:"+this.destinatarioslist.getText()+":"+mensagem.getText());
             mensagem.setText("");
+            this.destinatarios.clear();
+            atualizaDestinatarios();
         }
     }
     
@@ -108,8 +109,12 @@ public class ChatController implements Initializable {
         Image image = new Image("/imagens/logo.png");
         img.setImage(image);
         lista.setOnMousePressed(e -> {
-            if(!destinatarios.contains(this.lista.getSelectionModel().getSelectedItem())){
-                this.destinatarios.add(this.lista.getSelectionModel().getSelectedItem());   
+            String item = this.lista.getSelectionModel().getSelectedItem();
+            if(!destinatarios.contains(item) && !nome.getText().equals(item) && item != null){
+                this.destinatarios.add(item);   
+                this.atualizaDestinatarios();
+            }else if(destinatarios.contains(item)){
+                this.destinatarios.remove(item);
                 this.atualizaDestinatarios();
             }
         });

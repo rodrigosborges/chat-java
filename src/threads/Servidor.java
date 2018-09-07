@@ -35,27 +35,25 @@ import model.Cliente;
 
         public void executa() throws IOException {
             // abertura de porta
-            ServerSocket servidor = new ServerSocket(this.porta);
-            System.out.println("Porta " + this.porta + " aberta!");
+            try{
+                ServerSocket servidor = new ServerSocket(this.porta);
 
-            while (true) {
-                // aceita cliente e imprime cliente conectado
-                Socket cliente = servidor.accept();
-                System.out.println("Nova conexão com cliente "
-                        + cliente.getInetAddress().getHostAddress());
+                while (true) {
+                    // aceita cliente e imprime cliente conectado
+                    Socket cliente = servidor.accept();
 
-                // adiciona saida do cliente a lista
-                Cliente cl = new Cliente(cliente);
-                this.clientes.add(cl);
+                    // adiciona saida do cliente a lista
+                    Cliente cl = new Cliente(cliente);
+                    this.clientes.add(cl);
 
-                // cria tratador de cliente numa nova thread
-                TrataCliente tc = new TrataCliente(cl, this);
-                new Thread(tc).start();
-            }
+                    // cria tratador de cliente numa nova thread
+                    TrataCliente tc = new TrataCliente(cl, this);
+                    new Thread(tc).start();
+                }
+            }catch(Exception e){}
         }
         
         public void controleMensagem(String msg, Cliente remetente) throws IOException{
-            System.out.println(msg);
             String funcao = msg.split(":")[0];
             switch(funcao){
                 case "login": 
