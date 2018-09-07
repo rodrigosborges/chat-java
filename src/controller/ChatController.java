@@ -98,6 +98,7 @@ public class ChatController implements Initializable {
     private void enviarMensagem(ActionEvent event) throws IOException{
         if(!destinatarioslist.getText().equals("") && !mensagem.getText().equals("")){
             this.cliente.enviarMensagem("mensagem:"+this.destinatarioslist.getText()+":"+mensagem.getText());
+            this.mensagens.getItems().add("| De: "+nome.getText()+" | Para: "+this.destinatarioslist.getText()+" | : "+mensagem.getText());
             mensagem.setText("");
             this.destinatarios.clear();
             atualizaDestinatarios();
