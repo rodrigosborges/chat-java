@@ -105,14 +105,14 @@ import model.Cliente;
             if(remetente.getNome() != null){
                 if(destinatarios.equals("*")){
                     for (Cliente cliente : this.clientes){
-                        if(cliente.getNome() != null && cliente != remetente)
+                        if(cliente.getNome() != null && !cliente.getNome().equals(remetente.getNome()))
                             cliente.getOut().println("transmitir:"+remetente.getNome()+":*:"+msg);
                     }                    
                 }else{
                     String[] destinatariosarray = destinatarios.split(";");
                     for (Cliente cliente : this.clientes){
                         for (String destinatario : destinatariosarray){
-                            if(cliente.getNome().equals(destinatario))
+                            if(cliente.getNome() != null && cliente.getNome().equals(destinatario) && !remetente.getNome().equals(destinatario))
                                 cliente.getOut().println("transmitir:"+remetente.getNome()+":"+destinatarios+":"+msg);
                         }
                     }

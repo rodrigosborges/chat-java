@@ -27,8 +27,10 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import threads.ClienteThread;
 import threads.Servidor;
@@ -87,21 +89,61 @@ public class ChatController implements Initializable {
     }
     
     public void lista_usuarios(String clientes){
-        lista.setItems(FXCollections.observableArrayList(clientes.split(";")));
+        lista.setItems(FXCollections.observableArrayList((";"+clientes).split(";")));
+        styleUsuarios();
+    }
+    
+    public void styleMensagens(){
+        mensagens.setCellFactory(lv -> new ListCell<String>() {
+            private final Label label = new Label();
+            private ImageView imageView = new ImageView();
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    label.setText(item);
+                    setGraphic(label);
+                    if(!item.contains("De:"))
+                        setStyle("-fx-alignment: CENTER-RIGHT");
+                }
+            }
+        });
+    }
+    
+    public void styleUsuarios(){
+        lista.setCellFactory(lv -> new ListCell<String>() {
+            private ImageView imageView = new ImageView();
+            @Override
+            protected void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty || item.equals("")) {
+                    setGraphic(null);
+                } else {
+                    imageView.setImage(new Image("/imagens/online.png"));
+                    setText(item);
+                    setGraphic(imageView);
+                }
+            }
+        });
     }
     
     public void transmitir(String remetente, String destinatario, String msg){
         mensagens.getItems().add("| De: "+remetente+" | Para: "+destinatario+" | : "+msg);
+        this.styleMensagens();
     }
     
     @FXML
     private void enviarMensagem(ActionEvent event) throws IOException{
         if(!destinatarioslist.getText().equals("") && !mensagem.getText().equals("")){
             this.cliente.enviarMensagem("mensagem:"+this.destinatarioslist.getText()+":"+mensagem.getText());
-            this.mensagens.getItems().add("| De: "+nome.getText()+" | Para: "+this.destinatarioslist.getText()+" | : "+mensagem.getText());
+            this.mensagens.getItems().add("| Para: "+this.destinatarioslist.getText()+" | : "+mensagem.getText());
             mensagem.setText("");
             this.destinatarios.clear();
+            this.destinatarios.add("*");
             atualizaDestinatarios();
+            this.styleMensagens();
         }
     }
     
@@ -109,14 +151,26 @@ public class ChatController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Image image = new Image("/imagens/logo.png");
         img.setImage(image);
+        this.destinatarios.add("*");
+        this.atualizaDestinatarios();
         lista.setOnMousePressed(e -> {
             String item = this.lista.getSelectionModel().getSelectedItem();
-            if(!destinatarios.contains(item) && !nome.getText().equals(item) && item != null){
-                this.destinatarios.add(item);   
+            if(this.destinatarios.contains("*") && !nome.getText().equals(item)){             
+                this.destinatarios.clear();
+                this.destinatarios.add(item);
                 this.atualizaDestinatarios();
-            }else if(destinatarios.contains(item)){
-                this.destinatarios.remove(item);
-                this.atualizaDestinatarios();
+            }else{
+                if(!destinatarios.contains(item) && !nome.getText().equals(item) && item != null){
+                    if(destinatarios.contains("*"))
+                        this.destinatarios.clear();
+                    this.destinatarios.add(item);   
+                    this.atualizaDestinatarios();
+                }else if(destinatarios.contains(item)){
+                    this.destinatarios.remove(item);
+                    if(this.destinatarios.isEmpty())
+                        this.destinatarios.add("*");
+                    this.atualizaDestinatarios();
+                }
             }
         });
     }   

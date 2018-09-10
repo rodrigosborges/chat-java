@@ -1,16 +1,40 @@
 .layout{
     -fx-background-color: #E6E6FA;
 }
-.mensagens{
-    -fx-background-color:#FFFFFF;
-}
 
 .usuarios{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
     -fx-background-color:#FFFFFF;
 }
 
 .botao{
     -fx-cursor: hand;
 }
+.mensagens{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 3, 0, 0, 0);    
+    -fx-background-color:#FFFFFF;
+}
 
-
+.mensagens .list-cell {
+    -fx-background-color: transparent ;
+    -fx-padding: 3px ;
+}
+.mensagens .list-cell .label{
+  display: inline-block;
+  -fx-text-fill: #3d3b3b;
+  -fx-background: #E6E6FA;
+  -fx-background-color: -fx-background ;
+  -fx-background-radius: 30px;
+  -fx-border-radius: 20px;
+  -fx-border-width: 1px;
+  -fx-border-style: solid;
+  -fx-border-color: #666666;
+  -fx-padding: 4 10 4 10;
+}
+.mensagens .list-cell:empty .label {
+  -fx-background-color: transparent;
+  -fx-border-width: 0px;
+}
+.mensagens .list-cell:selected .label {
+    -fx-background: #E6E6FA ;
+}

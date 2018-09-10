@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="720.0" styleClass="layout" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ChatController">
    <children>
       <Button layoutX="641.0" layoutY="464.0" mnemonicParsing="false" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="65.0" styleClass="botao" text="ENVIAR" />
       <TextField fx:id="mensagem" layoutX="208.0" layoutY="464.0" onAction="#enviarMensagem" prefHeight="25.0" prefWidth="406.0" />
@@ -21,11 +21,11 @@
             <Glow />
          </effect>
          <children>
-            <ListView fx:id="mensagens" layoutY="-1.0" prefHeight="284.0" prefWidth="497.0" />
+            <ListView fx:id="mensagens" layoutY="-1.0" prefHeight="284.0" prefWidth="497.0" styleClass="mensagens" />
          </children>
       </Pane>
-      <ListView fx:id="lista" layoutX="9.0" layoutY="157.0" prefHeight="332.0" prefWidth="179.0" styleClass="usuarios" />
-      <ImageView fx:id="img" fitHeight="114.0" fitWidth="255.0" layoutX="14.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true" />
+      <ListView fx:id="lista" layoutX="9.0" layoutY="156.0" prefHeight="334.0" prefWidth="179.0" styleClass="usuarios" />
+      <ImageView fx:id="img" fitHeight="114.0" fitWidth="255.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
       <Pane layoutX="347.0" layoutY="4.0" prefHeight="138.0" prefWidth="370.0">
          <children>
             <Label layoutX="11.0" layoutY="6.0" prefHeight="4.0" prefWidth="76.0" text="SEU NOME:" />
@@ -39,5 +39,6 @@
       </Pane>
       <Label fx:id="destinatarioslist" layoutX="274.0" layoutY="443.0" prefHeight="17.0" prefWidth="431.0" />
       <Label layoutX="208.0" layoutY="443.0" prefHeight="17.0" prefWidth="65.0" text="Enviar para:" />
+      <Label alignment="CENTER" layoutX="9.0" layoutY="156.0" prefHeight="23.0" prefWidth="179.0" styleClass="tituloLista" text="Lista de usuários" textAlignment="CENTER" />
    </children>
 </AnchorPane>
