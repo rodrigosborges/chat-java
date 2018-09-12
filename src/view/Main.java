@@ -12,15 +12,19 @@ public class Main extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        
-        Parent root = FXMLLoader.load(getClass().getResource("/view/Chat.fxml"));
-        
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Chat.fxml"));
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         
         scene.getStylesheets().add("/view/Main.css");
         stage.setScene(scene);
         stage.getIcons().add(new Image("/imagens/chat.png"));
         stage.setTitle("CHAT");
+        
+        //chama a função que finaliza a thread quando fecha o programa
+        ChatController controller = loader.getController();
+        stage.setOnHidden(e -> controller.shutdown());
+        
         stage.show();
     }
 

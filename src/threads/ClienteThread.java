@@ -27,17 +27,20 @@ public class ClienteThread{
         this.controller = controller;
     }
 
-    public void executa() throws UnknownHostException, IOException {
-        
-        Socket cliente = new Socket(this.host, this.porta);
-        System.out.println("O cliente se conextou ao servidor: " + this.host);
+    public boolean executa() throws UnknownHostException, IOException {
+        try{
+            Socket cliente = new Socket(this.host, this.porta);
+            // thread para receber mensagens do servidor
+            Recebedor r = new Recebedor(cliente.getInputStream(),this);
+            new Thread(r).start();
 
-        // thread para receber mensagens do servidor
-        Recebedor r = new Recebedor(cliente.getInputStream(),this);
-        new Thread(r).start();
+            // lê msgs do teclado e manda pro servidor
+            this.saida = new PrintStream(cliente.getOutputStream());
 
-        // lê msgs do teclado e manda pro servidor
-        this.saida = new PrintStream(cliente.getOutputStream());
+            return true;
+        }catch(Exception e){
+            return false;
+        }
     }
     
     public void enviarMensagem(String mensagem){
@@ -54,7 +57,7 @@ public class ClienteThread{
                 break;
             case "transmitir":
                 System.out.println(msg);
-                controller.transmitir(msg.split(":")[1], msg.split(":")[2], msg.split(":")[3]);
+                controller.transmitir(msg.split(":",4)[1], msg.split(":",4)[2], msg.split(":",4)[3]);
                 break;
         }
     }

@@ -28,10 +28,10 @@
       <ImageView fx:id="img" fitHeight="114.0" fitWidth="255.0" layoutX="14.0" layoutY="17.0" pickOnBounds="true" preserveRatio="true" />
       <Pane layoutX="347.0" layoutY="4.0" prefHeight="138.0" prefWidth="370.0">
          <children>
-            <Label layoutX="11.0" layoutY="6.0" prefHeight="4.0" prefWidth="76.0" text="SEU NOME:" />
+            <Label fx:id="msg1" layoutX="11.0" layoutY="6.0" prefHeight="4.0" prefWidth="76.0" text="SEU NOME:" />
             <TextField fx:id="nome" layoutX="11.0" layoutY="26.0" prefHeight="25.0" prefWidth="349.0" styleClass="login" />
             <Button fx:id="criar" layoutX="37.0" layoutY="85.0" mnemonicParsing="false" onAction="#criarServidor" text="CRIAR SERVIDOR" />
-            <Label layoutX="190.0" layoutY="61.0" text="SERVIDOR:" />
+            <Label fx:id="msg2" layoutX="190.0" layoutY="61.0" text="SERVIDOR:" />
             <TextField fx:id="servidor" layoutX="189.0" layoutY="80.0" prefHeight="25.0" prefWidth="170.0" />
             <Button fx:id="conectar" layoutX="236.0" layoutY="112.0" mnemonicParsing="false" onAction="#entrarServidor" text="CONECTAR" />
             <Separator layoutX="175.0" layoutY="60.0" orientation="VERTICAL" prefHeight="82.0" prefWidth="15.0" />

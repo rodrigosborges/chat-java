@@ -18,7 +18,7 @@ import model.Cliente;
     public class Servidor extends Thread{
 
         private int porta;
-        private List<Cliente> clientes;
+        private ArrayList<Cliente> clientes;
 
         public Servidor(int porta) {
             this.porta = porta;
@@ -80,11 +80,17 @@ import model.Cliente;
             Boolean resultado = livre && nome.matches("[a-zA-Z0-9 ]*") && !nome.equals("");
                         
             remetente.getOut().println("login:"+resultado.toString());
+            remetente.getOut().flush();
             
             if(resultado){
                 remetente.setNome(nome);
                 lista_usuarios();
             }
+        }
+        
+        public void remove_usuario(Cliente cliente) throws IOException{
+            clientes.remove(cliente);
+            lista_usuarios();
         }
         
         public void lista_usuarios() throws IOException{
@@ -97,6 +103,7 @@ import model.Cliente;
             for (Cliente cliente : this.clientes){
                 if(cliente.getNome() != null){
                     cliente.getOut().println(mensagem);
+                    cliente.getOut().flush();
                 }
             }    
         }
@@ -105,15 +112,19 @@ import model.Cliente;
             if(remetente.getNome() != null){
                 if(destinatarios.equals("*")){
                     for (Cliente cliente : this.clientes){
-                        if(cliente.getNome() != null && !cliente.getNome().equals(remetente.getNome()))
+                        if(cliente.getNome() != null && !cliente.getNome().equals(remetente.getNome())){
                             cliente.getOut().println("transmitir:"+remetente.getNome()+":*:"+msg);
+                            cliente.getOut().flush();
+                        }
                     }                    
                 }else{
                     String[] destinatariosarray = destinatarios.split(";");
                     for (Cliente cliente : this.clientes){
                         for (String destinatario : destinatariosarray){
-                            if(cliente.getNome() != null && cliente.getNome().equals(destinatario) && !remetente.getNome().equals(destinatario))
+                            if(cliente.getNome() != null && cliente.getNome().equals(destinatario) && !remetente.getNome().equals(destinatario)){
                                 cliente.getOut().println("transmitir:"+remetente.getNome()+":"+destinatarios+":"+msg);
+                                cliente.getOut().flush();
+                            }
                         }
                     }
                 }

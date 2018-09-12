@@ -46,7 +46,7 @@ public class ChatController implements Initializable {
     @FXML private TextField nome, servidor, mensagem;
     @FXML private ListView<String> lista = new ListView<String>(),mensagens = new ListView<String>();
     @FXML private ArrayList<String> destinatarios = new ArrayList<String>();
-    @FXML private Label destinatarioslist;
+    @FXML private Label destinatarioslist, msg1, msg2;
     @FXML private Button criar, conectar;
     private ClienteThread cliente;
     
@@ -56,25 +56,26 @@ public class ChatController implements Initializable {
     
     @FXML
     private void criarServidor(ActionEvent event) throws IOException{
-        new Servidor(6666).start();
-        this.cliente = new ClienteThread("127.0.0.1", 6666, this);
-        cliente.executa();
-        this.cliente.enviarMensagem("login:"+nome.getText());
-        nome.setDisable(true);
-        criar.setDisable(true);
-        conectar.setDisable(true);
-        servidor.setDisable(true);
+        try{
+            new Servidor(6666).start();
+            this.cliente = new ClienteThread("127.0.0.1", 6666, this);
+            cliente.executa();
+            this.cliente.enviarMensagem("login:"+nome.getText());
+            nome.setDisable(true);criar.setDisable(true);conectar.setDisable(true);servidor.setDisable(true);msg1.setDisable(true);msg2.setDisable(true);
+        }catch(Exception e){
+            this.mensagem("ERRO","Não foi possível criar o servidor");
+        }
     }
     
     @FXML
     private void entrarServidor(ActionEvent event) throws IOException{
-        this.cliente = new ClienteThread(servidor.getText(), 6666, this); 
-        cliente.executa();
-        this.cliente.enviarMensagem("login:"+nome.getText());
-        nome.setDisable(true);
-        criar.setDisable(true);
-        conectar.setDisable(true);
-        servidor.setDisable(true);
+        this.cliente = new ClienteThread(servidor.getText(), 6666, this);
+        boolean rp = cliente.executa();
+        if(rp){
+            this.cliente.enviarMensagem("login:"+nome.getText());
+            nome.setDisable(true);criar.setDisable(true);conectar.setDisable(true);servidor.setDisable(true);msg1.setDisable(true);msg2.setDisable(true);
+        }else
+            this.mensagem("ERRO","Não foi possível encontrar o servidor");
     }
     
     public void atualizaDestinatarios(){
@@ -155,7 +156,7 @@ public class ChatController implements Initializable {
         this.atualizaDestinatarios();
         lista.setOnMousePressed(e -> {
             String item = this.lista.getSelectionModel().getSelectedItem();
-            if(this.destinatarios.contains("*") && !nome.getText().equals(item)){             
+            if(this.destinatarios.contains("*") && !nome.getText().equals(item) && item != null){             
                 this.destinatarios.clear();
                 this.destinatarios.add(item);
                 this.atualizaDestinatarios();
@@ -175,8 +176,12 @@ public class ChatController implements Initializable {
         });
     }   
     
+    public void shutdown() {
+        System.exit(0);
+    }
+    
     public void mensagem(String titulo, String texto){
-        Platform.runLater(()->{
+        Platform.runLater(()-> {
             FXMLLoader fxmlLoader = new FXMLLoader();
             fxmlLoader.setLocation(getClass().getResource("/view/Mensagem.fxml"));
             fxmlLoader.getNamespace().put("labelText", texto);
