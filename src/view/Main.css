@@ -2,6 +2,10 @@
     -fx-background-color: #E6E6FA;
 }
 
+.layout2{
+    -fx-background-color: #E6E6FA;
+}
+
 .usuarios{
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.3), 5, 0, 0, 0);
     -fx-background-color:#FFFFFF;

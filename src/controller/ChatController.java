@@ -190,6 +190,7 @@ public class ChatController implements Initializable {
                 scene = new Scene(fxmlLoader.load());
                 Stage stage = new Stage();
                 stage.setTitle(titulo);
+                scene.getStylesheets().add("/view/Main.css");
                 stage.setScene(scene);
                 stage.show();
             } catch (IOException ex) {
