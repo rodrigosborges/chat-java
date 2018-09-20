@@ -61,7 +61,6 @@ public class ChatController implements Initializable {
             this.cliente = new ClienteThread("127.0.0.1", 6666, this);
             cliente.executa();
             this.cliente.enviarMensagem("login:"+nome.getText());
-            nome.setDisable(true);criar.setDisable(true);conectar.setDisable(true);servidor.setDisable(true);msg1.setDisable(true);msg2.setDisable(true);
         }catch(Exception e){
             this.mensagem("ERRO","Não foi possível criar o servidor");
         }
@@ -73,7 +72,6 @@ public class ChatController implements Initializable {
         boolean rp = cliente.executa();
         if(rp){
             this.cliente.enviarMensagem("login:"+nome.getText());
-            nome.setDisable(true);criar.setDisable(true);conectar.setDisable(true);servidor.setDisable(true);msg1.setDisable(true);msg2.setDisable(true);
         }else
             this.mensagem("ERRO","Não foi possível encontrar o servidor");
     }
@@ -87,6 +85,9 @@ public class ChatController implements Initializable {
     
     public void login(String resultado){
         this.mensagem((resultado.equals("true") ? "SUCESSO" : "ERRO"),(resultado.equals("true") ? "O nome de usuário foi registrado com sucesso" : "O nome do usuário não pôde ser registrado pois é inválido ou já está em uso"));
+        if(resultado.equals("true")){
+            nome.setDisable(true);criar.setDisable(true);conectar.setDisable(true);servidor.setDisable(true);msg1.setDisable(true);msg2.setDisable(true);
+        }
     }
     
     public void lista_usuarios(String clientes){
