@@ -5,6 +5,8 @@
  */
 package controller;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.event.MouseEvent;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -106,7 +108,7 @@ public class ChatController implements Initializable {
                 }else{
                     label.setText(item);
                     setGraphic(label);
-                    if(!item.contains("De:"))
+                    if(item.startsWith("| Para:"))
                         setStyle("-fx-alignment: CENTER-RIGHT");
                     else
                         setStyle("-fx-alignment: CENTER-LEFT");
@@ -136,6 +138,9 @@ public class ChatController implements Initializable {
     public void transmitir(String remetente, String destinatario, String msg){
         mensagens.getItems().add("| De: "+remetente+" | Para: "+destinatario+" | : "+msg);
         this.styleMensagens();
+        URL som = getClass().getResource("/imagens/msn.wav");
+        AudioClip audio = Applet.newAudioClip(som);
+        audio.play();
     }
     
     @FXML
