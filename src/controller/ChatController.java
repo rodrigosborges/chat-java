@@ -103,16 +103,18 @@ public class ChatController implements Initializable {
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) {
-                    setGraphic(null);
-                } else {
+                }else{
                     label.setText(item);
                     setGraphic(label);
                     if(!item.contains("De:"))
                         setStyle("-fx-alignment: CENTER-RIGHT");
+                    else
+                        setStyle("-fx-alignment: CENTER-LEFT");
                 }
             }
         });
     }
+    //mensagens.getItems().get(mensagens.getItems().size()-1
     
     public void styleUsuarios(){
         lista.setCellFactory(lv -> new ListCell<String>() {
