@@ -200,6 +200,7 @@ public class ChatController implements Initializable {
                 stage.setTitle(titulo);
                 scene.getStylesheets().add("/view/Main.css");
                 stage.setScene(scene);
+                stage.setResizable(false);
                 stage.show();
             } catch (IOException ex) {
                 Logger.getLogger(ChatController.class.getName()).log(Level.SEVERE, null, ex);

@@ -20,6 +20,7 @@ public class Main extends Application {
         stage.setScene(scene);
         stage.getIcons().add(new Image("/imagens/chat.png"));
         stage.setTitle("CHAT");
+        stage.setResizable(false);
         
         //chama a função que finaliza a thread quando fecha o programa
         ChatController controller = loader.getController();
