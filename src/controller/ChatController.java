@@ -33,6 +33,8 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 import threads.ClienteThread;
 import threads.Servidor;
@@ -107,6 +109,9 @@ public class ChatController implements Initializable {
                 if (empty) {
                 }else{
                     label.setText(item);
+                    label.setWrapText(true);
+                    label.setMaxWidth(450);
+                    label.setTextAlignment(TextAlignment.JUSTIFY);
                     setGraphic(label);
                     if(item.startsWith("| Para:"))
                         setStyle("-fx-alignment: CENTER-RIGHT");

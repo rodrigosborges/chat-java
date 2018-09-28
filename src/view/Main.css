@@ -22,18 +22,19 @@
 .mensagens .list-cell {
     -fx-background-color: transparent ;
     -fx-padding: 3px ;
+     max-width: 450px;
 }
 .mensagens .list-cell .label{
-  display: inline-block;
-  -fx-text-fill: #3d3b3b;
-  -fx-background: #E6E6FA;
-  -fx-background-color: -fx-background ;
-  -fx-background-radius: 30px;
-  -fx-border-radius: 20px;
-  -fx-border-width: 1px;
-  -fx-border-style: solid;
-  -fx-border-color: #666666;
-  -fx-padding: 4 10 4 10;
+    display: inline-block;
+    -fx-text-fill: #3d3b3b;
+    -fx-background: #E6E6FA;
+    -fx-background-color: -fx-background ;
+    -fx-background-radius: 30px;
+    -fx-border-radius: 20px;
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+    -fx-border-color: #666666;
+    -fx-padding: 4 10 4 10;
 }
 .mensagens .list-cell:empty .label {
   -fx-background-color: transparent;
